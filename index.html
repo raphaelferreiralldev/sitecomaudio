@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Sons de Animais</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url("fundo.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+    .titulo-texto {
+  color: white;
+  font-size: 42px;
+  margin-bottom: 30px;
+  text-shadow:
+    -1px -1px 0 rgba(0,0,0,0.6),
+     1px -1px 0 rgba(0,0,0,0.6),
+    -1px  1px 0 rgba(0,0,0,0.6),
+     1px  1px 0 rgba(0,0,0,0.6),
+     0  4px 8px rgba(0,0,0,0.4);
+ 
+}
+
+
+    .botoes {
+      display: flex;
+      gap: 20px;
+    }
+
+    .glass {
+      width: 130px;
+      height: 130px;
+
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      background-color: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 12px;
+
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+
+      cursor: pointer;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      padding-bottom: 10px;
+
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .glass:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .glass:active {
+      transform: scale(0.98);
+    }
+
+    /* Botão da música */
+    .musica-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+
+      width: 50px;
+      height: 50px;
+
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+
+      background-color: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+      cursor: pointer;
+      font-size: 22px;
+      color: white;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .musica-btn:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+  <h1 class="titulo-texto">Sons de Animais</h1>
+
+
+  <!-- Botão da música -->
+  <button class="musica-btn" onclick="toggleMusica()">🎵</button>
+
+  <!-- Áudios dos animais -->
+  <audio id="vaca" src="vaca.mp3" preload="auto"></audio>
+  <audio id="porco" src="porco.mp3" preload="auto"></audio>
+  <audio id="galinha" src="galinha.mp3" preload="auto"></audio>
+
+  <!-- Música de fundo -->
+  <audio id="musicaFundo" src="fundo.mp3" loop preload="auto"></audio>
+
+  <!-- Botões -->
+  <div class="botoes">
+    <button class="glass" onclick="tocar('vaca')" style="background-image: url('vaca.png')">
+      
+    </button>
+
+    <button class="glass" onclick="tocar('porco')" style="background-image: url('porco.png')">
+      
+    </button>
+
+    <button class="glass" onclick="tocar('galinha')" style="background-image: url('galinha.png')">
+      
+    </button>
+  </div>
+
+  <script>
+    let audioAtual = null;
+    const musica = document.getElementById("musicaFundo");
+
+    musica.volume = 0.1;
+
+    function tocar(id) {
+      if (audioAtual) {
+        audioAtual.pause();
+        audioAtual.currentTime = 0;
+      }
+
+      audioAtual = document.getElementById(id);
+      audioAtual.play();
+    }
+
+    function toggleMusica() {
+      musica.muted = false;
+
+      if (musica.paused) {
+        musica.currentTime = 0;
+        musica.play().catch(err => {
+          console.log("Música bloqueada pelo navegador:", err);
+        });
+      } else {
+        musica.pause();
+      }
+    }
+  </script>
+
+</body>
+</html>
